@@ -32,6 +32,8 @@ def textToVoice():
     print(rate)
     # setting new voice rate (faster)好的，让我们将其更改为300（使语速更快）
     eng.setProperty("rate", 220)
+    # saving speech audio into a file
+    # eng.save_to_file(content, "python01.mp3")   #文本转换为音频使用save_to_file()方法将音频保存为所在目录的mp3文件
     eng.say(content)
     eng.runAndWait()
 
