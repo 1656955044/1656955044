@@ -28,6 +28,10 @@ def voiceChange():
 def textToVoice():
     eng = pyttsx3.init()
     # eng.say("这是一个ppytsx3模块，自动将文本输出到系统语音")
+    rate = eng.getProperty("rate")
+    print(rate)
+    # setting new voice rate (faster)好的，让我们将其更改为300（使语速更快）
+    eng.setProperty("rate", 220)
     eng.say(content)
     eng.runAndWait()
 
