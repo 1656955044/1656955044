@@ -1,0 +1,35 @@
+"""
+author:dingxilun
+date:20220618
+around平台_友情赞助_22年6月18号：语音模块 变声文本输出声音pptysz3模块
+"""
+
+import pyttsx3
+from pathlib import Path
+file_path ="/Users/v_dingxilun/Downloads/anr/zshanchu/log_20220618.txt"
+with open(file_path) as f:
+    content = f.read().replace('\n', ' ')
+print(content)  #绝对路径txt文件读取为字符串str,换行文本连在一起了。
+content2 = Path("/Users/v_dingxilun/Downloads/anr/zshanchu/log_20220618.txt").read_text().replace('\n', ' ')
+print(content2)
+
+print("有没有经过这一行")
+
+def voiceChange():
+    eng = pyttsx3.init()  # initialize an instance
+    voice = eng.getProperty('voices')  # get the available voices
+    # eng.setProperty('voice', voice[0].id) #set the voice to index 0 for male voice
+    eng.setProperty('voice', voice[1].id)  # changing voice to index 1 for female voice,0代表男声
+    eng.say("so why speack english？这个不能赋予变量，并且只播报英文就很奇葩")  # say method for passing text to be spoken
+
+    eng.runAndWait()  # run and process the voice command
+
+def textToVoice():
+    eng = pyttsx3.init()
+    # eng.say("这是一个ppytsx3模块，自动将文本输出到系统语音")
+    eng.say(content)
+    eng.runAndWait()
+
+if __name__ == "__main__":
+    textToVoice()
+    voiceChange()
