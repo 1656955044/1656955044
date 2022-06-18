@@ -2,6 +2,7 @@
 author:dingxilun
 date:20220618
 around平台_友情赞助_22年6月18号：语音模块 变声文本输出声音pptysz3模块
+想法01：能不能将百度地图的个性化发音人接口，播报自己的声音？这就很不错喔
 """
 
 import pyttsx3
