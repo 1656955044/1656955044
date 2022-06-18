@@ -1,0 +1,44 @@
+"""
+author:dingxilun
+date:20220618
+在任何一个软件，聊天窗口都能进行发送定时指定消息。
+"""
+import pyperclip
+import pyautogui
+from datetime import datetime
+from apscheduler.schedulers.blocking import BlockingScheduler # 阻塞当前进程的调度器
+# blocking类型调度器会阻塞当前进程，若你想要后台运行的调度器，可以使用以下代码：
+# from apscheduler.schedulers.background import BackgroundScheduler
+
+pyautogui.PAUSE = 1 # 设置每一步操作的间隔（秒），可防止操作太快
+
+def auto_send_window_message():
+    print(pyautogui.position()) # 打印坐标，Point(x=291, y=869)   #登录微信，最小化,鼠标放到微信的任务栏图标上,mac底部bar第四个
+    icon_position = pyautogui.position(291,869) # Point(x=291, y=869)
+    ruLiu_search_position = pyautogui.position(340, 67)  # Point(x=291, y=869)  如流搜索框Point(x=340, y=67)
+
+    print(pyautogui.position()) # 打印坐标，Point(x=613, y=634)    #对话流光标，如流APP的。
+    entry_position = pyautogui.position(613,634) # Point(x=613, y=634)
+
+    # pyautogui.click(291,869) # 默认左键单击,接下来，控制程序依次点击这两个点：
+    # pyautogui.click(613,634)
+
+
+    #为了使我们的操作更加 人模狗样 像人的操作，我么来加上移动鼠标的代码：如下
+    pyautogui.moveTo(icon_position, duration=2) # duration为执行时长，可选
+    pyautogui.click(icon_position)
+    pyautogui.moveTo(entry_position, duration=2)
+    pyautogui.click(ruLiu_search_position)
+    pyautogui.typewrite(['shift', *list('houdaitao '), 'shift', 'enter'], 0.1)  # 第一个参数是输入文本，第二个是输入每个字符的间隔时间
+    pyautogui.typewrite([*list('wanshang '), *list('dasuan '),*list('chishnegme '), 'shift', *list(' '), 'shift', *list('huoguo '), 'enter'], 0.1) # 第一个参数是输入文本，第二个是输入每个字符的间隔时间,直接输入中文，所以只能依靠你的输入法来输入中文了。
+
+    print(pyautogui.position())  # 打印坐标，Point(x=291, y=869)
+    ruLiu_search_position = pyautogui.position(340, 67)  # Point(x=291, y=869)  如流搜索框Point(x=340, y=67)
+    pyautogui.click(ruLiu_search_position)
+    pyautogui.typewrite(['shift', *list('yuanwenhao '), 'shift', 'enter'], 0.1)  # 第一个参数是输入文本，第二个是输入每个字符的间隔时间
+    pyautogui.typewrite([*list('wanshang '), *list('dasuan '),*list('chishnegme '), 'shift', *list(' '), 'shift', *list('huoguo '), 'enter'], 0.1) # 第一个参数是输入文本，第二个是输入每个字符的间隔时间,直接输入中文，所以只能依靠你的输入法来输入中文了。
+
+#APScheduler 是一个Python库，可实现延迟调度要执行Python代码的功能，可以只执行一次，也可以定期执行。可以随时添加新任务或删除旧任务。能够十分方便地进行定时任务
+scheduler = BlockingScheduler() # 实例化一个调度器
+scheduler.add_job(auto_send_window_message, 'date', run_date=datetime(2022, 6, 18, 18, 30, 00)) # 添加任务
+scheduler.start()
